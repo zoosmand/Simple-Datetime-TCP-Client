@@ -1,0 +1,33 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                // apt-get install libc6-dev-i386
+                "/usr/include/x86_64-linux-gnu",
+                "/usr/include",
+                "${workspaceRoot}/lib",
+                "${workspaceRoot}/Core/Inc",
+                "${workspaceRoot}/Core/Src"
+            ],
+            "defines": [
+                "DEBUG",
+                "u_char=unsigned char",
+                "u_int=unsigned int"
+            ],
+            "intelliSenseMode": "gcc-x64",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "browse": {
+                "path": [
+                    "${workspaceRoot}",
+                    "${env:VSARM}/arm-gcc",
+                    "${env:VSARM}/cache"
+                ],
+                "limitSymbolsToIncludedHeaders": false,
+                "databaseFilename": ""
+            }
+        }
+    ],
+    "version": 4
+}
