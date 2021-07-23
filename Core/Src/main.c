@@ -25,65 +25,41 @@
   */
 int main(int argc, char **argv) {
   // socket 
-  int sockfd;
+  int socketDateTime = 0;
   // counter of received bytes
-  int n;
-  // error number
-  int _status = 1;
+  int byteCounter = 0;
+  // counter of received packets
+  int packetCounter = 0;
   // buffer to store the date
-  char recvline[MAXLINE + 1];
-  // server info 
-  struct sockaddr_in servaddr;
+  char receivedLine[MAXLINE + 1];
+  // server attributes
+  struct sockaddr_in serverAddr;
 
-  if (argc != 2)
-    err_quit("usage: %s <IPaddress>", argv[0]);
+  if (argc != 2) err_quit("usage: %s <IPaddress>", argv[0]);
 
   // define socket
-  sockfd = socket(AF_INET, SOCK_STREAM, 0);
-
-  if (sockfd < 0) {
-    err_sys("socket error");
-    exit(1);
-  }
-
+  socketDateTime = Socket(AF_INET, SOCK_STREAM, 0);
   // zero the struct 
-  bzero(&servaddr, sizeof(servaddr));
-  
+  bzero(&serverAddr, sizeof(serverAddr));  
   // define protocol family
-  servaddr.sin_family = AF_INET;
+  serverAddr.sin_family = AF_INET;
   // define protocol port (host to network short)
-  servaddr.sin_port   = htons(SRV_PROTO);	/* daytime server */
+  serverAddr.sin_port = htons(SRV_PROTO);	/* daytime server */
   
   // (presentation to numeric)
-  _status = inet_pton(AF_INET, argv[1], &servaddr.sin_addr);
-
-  if (_status <= 0) {
-    err_quit("inet_pton error for %s", argv[1]);
-    exit(1);
-  }
+  Inet_pton(AF_INET, argv[1], &serverAddr.sin_addr);
 
   // connect to server
-  _status = connect(sockfd, (SA*)&servaddr, sizeof(servaddr));
-
-  if (_status < 0) {
-    err_sys("connect error");
-    exit(1);
-  }
+  Connect(socketDateTime, (SA*)&serverAddr, sizeof(serverAddr));
 
   // read the stream until a null comes
-  while ((n = read(sockfd, recvline, MAXLINE)) > 0) {
-    recvline[n] = 0;	/* null terminate */
-    if (fputs(recvline, stdout) == EOF) {
-      err_sys("fputs error");
-      exit(1);
-    }
+  while ((byteCounter = read(socketDateTime, receivedLine, MAXLINE)) > 0) {
+    packetCounter++;
   }
   
   // exit with error if the stread is empty
-  if (n < 0) {
-    err_sys("read error");
-    exit(1);
-  }
+  if (byteCounter < 0) err_sys("No bytes received");
 
+  printf("%sreceived: %d\n\n", receivedLine, packetCounter);
   exit(0);
 }

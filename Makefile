@@ -23,7 +23,7 @@ INCLUDE_DIRS += -I${CORE_DIR}/Inc
 INCLUDE_DIRS += -I${LIB_DIR}
 
 SOURCE_FILES := $(wildcard ${CORE_DIR}/Src/*.c)
-SOURCE_FILES += ${LIB_DIR}/error.c
+SOURCE_FILES += $(wildcard ${LIB_DIR}/*.c)
 
 ifeq ($(DEBUG), 1)
 	C_DEFS += -DDEBUG
