@@ -14,7 +14,10 @@
 #define __MAIN_H
 
 /* Includes ------------------------------------------------------------------*/
+#include <string.h>
 #include "unp.h"
+
+#define SRV_PROTO 13
 
 
 
