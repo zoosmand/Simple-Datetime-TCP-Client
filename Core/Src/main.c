@@ -21,7 +21,7 @@
 
 /**
   * @brief  The application entry point.
-  * @return int: Standard putput indicates errors
+  * @return int: Standard output indicates errors
   */
 int main(int argc, char **argv) {
   // socket 

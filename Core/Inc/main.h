@@ -19,7 +19,7 @@
 
 #define SRV_PROTO 13
 
-
+// grep -rnw . -e 'inet6_rth_segments'
 
 /* ---------------------------------------------------------------------------*/
 #ifdef __cplusplus
